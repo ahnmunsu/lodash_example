@@ -22,23 +22,79 @@
 ---
 
 ## String-객체가-비어있는지-확인
-
+*  isEmpty() 메서드는 비어있는 string일 경우 true를 리턴하고 아니면 false를 리턴한다.
+```js
+console.log(_.isEmpty({})); // returns true
+console.log(_.isEmpty('test')); // returns false
+console.log(_.isEmpty(null)); // returns true
+console.log(_.isEmpty('')); // returns true
+console.log(_.isEmpty(undefined)); // returns true
+```
 ---
 
 ## array에서 중복된 element/object 삭제 방법
-
+*  array와 comparator를 인자로 받는 uniqWith() 메서드를 사용한다.
+*  isEqual() comparator는 array object의 값을 확인하는데 사용된다.
+```js
+var arrayOfObjects = [{ 'id': 1, 'name': 'kiran' }, { 'id': 2, 'name': 'Franc' }, { 'id': 1, 'name': 'kiran' }];
+let uniqObjects=_.uniqWith(arrayOfObjects, _.isEqual);
+console.log(uniqObjects);  // returns [{ 'id': 1, 'name': 'kiran' }, { 'id': 2, 'name': 'Franc' }]
+```
 ---
 
 ## array 정렬
+*  sortBy() 메서드는 number/object/string을 정렬할 수 있다.
+*  stable sort를 사용하여 각 요소를 순회, 비교하고 오름차순으로 새로운 배열을 만들어 리턴한다.
+*  다음 예제에서 숫자, 문자열, 객체를 정렬한다.
+```js
+var numberArray = [ 12, 5, 1, 91, 46, 23 ];
+var stringArray = [ 'kiran','ebc','zen','abc' ];
+let newNumberArray=_.sortBy(numberArray);
+let newstringArray=_.sortBy(stringArray);
 
+console.log(newNumberArray); // returns [1, 5, 12, 23, 46, 91]
+console.log(newstringArray); //["abc", "ebc", "kiran", "zen"]
+
+var emps = [
+  { 'name': 'kiran',   'id': 32 },
+  { 'name': 'franck', 'id': 76 },
+  { 'name': 'Ram',   'id': 51 },
+  { 'name': 'Antony', 'id': 18 }
+];
+
+console.log(_.sortBy(emps, function(e){return e.name})); 
+// returns {name: "Antony", id: 18},{name: "Ram", id: 51},{name: "franck", id: 76},{name: "kiran", id: 32}
+```
 ---
 
 ## 객체 얕은 복사
-
+*  clone() 메서드는 얕은 복사 메커니즘을 제공한다.
+*  clone() 메서드는 객체를 제외하고 원시 값과 참조를 복사하여 복제된 객체를 만든다. 
+```js
+const _= require('lodash')
+const originalData = {
+  name: 'Franc',
+  department: {
+    type: 'Marketing'
+  }
+}
+const clonedData =_.clone(originalData)
+originalData.name = 'Kiran'
+originalData.department.type = 'Development'
+console.log(originalData) // returns { name: 'Kiran', department: { type: 'Development' } }
+console.log(clonedData) //returns  { name: 'Franc', department: { type: 'Development' } }
+```
 ---
 
 ## 객체 깊은 복사
-
+*  cloneDeep() 메서드를 사용하여 깊은 복사를 한다.
+```js
+const cloneDeepData =_.cloneDeep(originalData)
+originalData.name = 'Kiran'
+originalData.department.type = 'Development'
+console.log(originalData) // returns { name: 'Kiran', department: { type: 'Development' } }
+console.log(cloneDeepData) //returns  { name: 'Franc', department: { type: 'Marketing' } }
+```
 ---
 
 ## 두 element/object의 array를 검사하고 다른 것을 리턴

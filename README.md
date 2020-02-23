@@ -90,5 +90,10 @@
 ---
 
 
-https://www.cloudhadoop.com/2018/07/learn-lodash-library-in-javascript-with.html  
-https://www.cloudhadoop.com/2018/08/frequently-used-lodash-collection.html
+## References
+*  https://www.cloudhadoop.com/2018/07/learn-lodash-library-in-javascript-with.html  
+*  https://www.cloudhadoop.com/2018/07/learn-lodash-in-nodejs-with-examples.html
+*  https://www.cloudhadoop.com/2018/08/frequently-used-lodash-collection.html
+*  https://www.cloudhadoop.com/2018/08/learn-how-to-combine-objects-in.html
+
+

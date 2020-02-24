@@ -21,7 +21,7 @@
 
 ---
 
-## String-객체가-비어있는지-확인
+## String 객체가 비어있는지 확인
 *  isEmpty() 메서드는 비어있는 string일 경우 true를 리턴하고 아니면 false를 리턴한다.
 ```js
 console.log(_.isEmpty({})); // returns true
@@ -98,19 +98,67 @@ console.log(cloneDeepData) //returns  { name: 'Franc', department: { type: 'Mark
 ---
 
 ## 두 element/object의 array를 검사하고 다른 것을 리턴
-
+*  differenceWith() 메서드를 사용한다.
+*  사용법: _.differenceWith(firstArray, [secondArray], [comparator])
+```js
+var _=require('lodash');
+var firstArray = [1,5,6,7,2 ];
+var secondArray = [6,7,1];
+console.log(_.differenceWith(firstArray, secondArray, _.isEqual)) // returns [5,2]
+```
 ---
 
 ## filter 메서드
+*  배열이나 객체의 리스트를 순회하며 주어진 조건을 기반으로 필터링한다.
+```js
+var emps = [
+  { 'name': 'franc',  'id': 4, 'salary': 50000 },
+  { 'name': 'kiran',    'id': 20, 'salary': 40000 },
+  { 'name': 'ram', 'id': 31,  'salary': 60000 }
+  { 'name': 'abv', 'id': 21,  'salary': 30000 }
 
+];
+let result=_.filter(emps, function(emp) {
+    return emp.salary >= 50000 ;
+});
+output is 
+{ 'name': 'franc',  'id': 4, 'salary': 50000 },
+  { 'name': 'ram', 'id': 31,  'salary': 60000 }
+```
 ---
 
 ## find 메서드
+*  요소들을 순회하고 주어진 조건과 일치하는 첫 번째 요소를 리턴한다.
+```js
+var emps = [
+  { 'name': 'franc',  'id': 4, 'salary': 50000 },
+  { 'name': 'kiran',    'id': 20, 'salary': 40000 },
+  { 'name': 'ram', 'id': 31,  'salary': 60000 },
+  { 'name': 'abv', 'id': 21,  'salary': 30000 }
 
+];
+let result = _.find(emps, function(emp) {
+    return emp.salary >= 1000000 ; // outputs  undefined
+});
+let result = _.find(emps, function(e) {
+    return e.salary >= 400000 ; // outputs   { 'name': 'franc',  'id': 4, 'salary': 50000 },
+});
+```
 ---
 
 ## findLast 메서드
+*  find처럼 요소들을 순회하는데 오른쪽에서 왼쪽으로 혹은 마지막에서 첫번째로 방향으로 순회하고 주어진 조건과 일치하는 첫 번째 요소를 리턴한다.
+```js
+// this outputs abv ram kiran franc
+let result=_.findLast(emps, function(emp) {
+console.log(emp.name) 
+});
 
+// this outputs franc kiran ram abv
+let result1=_.find(emps, function(emp) {
+console.log(emp.name)
+});
+```
 ---
 
 ## forEach 메서드

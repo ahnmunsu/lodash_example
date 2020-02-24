@@ -162,35 +162,124 @@ console.log(emp.name)
 ---
 
 ## forEach 메서드
+*  forEach는 객체와 요소들의 배열 같은 컬렉션의 요소들을 순회하는 것이다.
+```js
+_.forEach(['for', 'each'], function(value) {
+  console.log(value);
+});
+//this outputs 'for' and 'each'
 
+var emps = [
+  { 'name': 'franc',  'id': 4, 'salary': 50000 },
+  { 'name': 'kiran',    'id': 20, 'salary': 40000 },
+  { 'name': 'ram', 'id': 31,  'salary': 60000 },
+  { 'name': 'abv', 'id': 21,  'salary': 30000 }
+];
+
+_.forEach(emps, function(obj,key,e) {
+    console.log(obj.name+'='+obj.id);
+
+});
+//this outputs 
+//franc=4
+//kiran=20
+//ram=31
+//abv=21
+```
 ---
 
 ## forEachRight 메서드
+*  forEachRight는 forEach와 동일하지만 오른쪽에서 왼쪽 혹은 마지막에서 첫번째로 순회한다.
+```js
+// this outputs abv ram kiran franc
+let result=_.findLast(emps, function(emp) {
+  console.log(emp.name) 
+});
 
+// this outputs franc kiran ram abv
+let result1=_.find(emps, function(emp) {
+  console.log(emp.name)
+});
+```
 ---
 
 ## map 메서드
+*  map은 컬렉션과 배열의 요소들을 순회하고 각각 요소들을 함수에 대입한다. 그리고 그것을 새로운 배열로 리턴한다.
+*  map이 forEach에 비해 성능 면에서 더 빠르다. map은 새 배열을 리턴하고 forEach는 동일한 배열을 리턴한다.
+```js
+function addTen(n) {
+  return n+10;
+}
 
+var emps = [
+  { 'name': 'franc', 'id': 4, 'salary': 50000 },
+  { 'name': 'kiran', 'id': 20, 'salary': 40000 },
+  { 'name': 'ram', 'id': 31,  'salary': 60000 },
+  { 'name': 'abv', 'id': 21,  'salary': 30000 }
+];
+
+console.log(_.map([4, 6], addTen));// outputs  [14, 16]
+console.log(_.map(emps, 'name')); // outputs ["franc", "kiran", "ram", "abv"]
+console.log(_.map(emps, 'salary')); // outputs [50000, 40000, 60000, 30000]
+console.log(_.map(emps, 'id')); // outputs  [4, 20, 31, 21]
+```
 ---
 
 ## every, some 메서드
-
+*  every 메서드는 컬렉션의 모든 요소가 표현식과 일치하면 true를 리턴한다. 
+*  some 메서드는 컬렉션의 요소 중 하나라도 표현식과 일치하면 true를 리턴한다.
+```js
+console.log(_.some(['test', 1, false,'no'], Boolean)) // outputs true
+console.log(_.every(['test', 1, false,'no'], Boolean)) // outputs false
+console.log(_.some(emps, { 'name': 'franc',  'id': 4, 'salary': 50000 })) // outputs true
+console.log(_.every(emps, { 'name': 'franc',  'id': 4, 'salary': 50000 })) // outputs false
+```
 ---
 
 ## object를 array로 변환
+*  map 함수는 객체를 입력으로 받고 그 요소를 순회하고 배열을 리턴한다.
+```js
+var objectVariable = {
+    k1: {id: 1, name: 'kiran'},
+    k2: {id: 2, name: 'frank'},
+    k3: {id: 3, name: 'john'}
+};
 
+var arrayVariable = _.map(objectVariable, v=>v);
+console.log('Array 1: ', arrayVariable);
+// returns [{id: 1, name: "kiran"},{id: 2, name: "frank"},{id: 3, name: "john"}]
+```
 ---
 
 ## assign 메서드
+*  assign 메서드는 소스 객체의 앖을 타겟 객체의 값으로 할당한다. 소스와 타겟 객체가 조합된 객체를 리턴한다.
+```js
+const source = {
+  name: "kiran",
+  id:12 
+};
+const department = {
+  type: "Development"
+};
 
+console.log(_.assign(source, department)); // returns {name: "kiran", id: 12, type: "Development"}
+console.log(_.assign({id:3}, {id:5,name:"kiran"})); // returns {id: 5, name: "kiran"}
+```
 ---
 
 ## extend 메서드
-
+*  extend 메서드는 객체 속성들을 복사한다.
+```js
+console.log(_.extend({id:3}, {id:5,name:"kiran"})); // returns {id: 5, name: "kiran"}
+```
 ---
 
 ## merge 메서드
-
+*  merge는 객체 속성을 소스 및 타겟으로 병합한다.
+*  소스에 자식 객체의 속성이 포함되어 있으면 자식 객체 계층이 타겟 자식 객체로 병합된다.
+```js
+_.merge ({}, {name:{value:'value'}}, {name:{test:'testvalue'}}) // outputs {name:{value: "value", test:"testvalue"}}
+```
 ---
 
 
